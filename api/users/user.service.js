@@ -20,7 +20,7 @@ module.exports = {
         data.product_specials,
         data.available_in_stock
       ],
-      (error, results, fields) => {
+      (error, results) => {
         if (error) {
           callBack(error);
         }
@@ -28,6 +28,7 @@ module.exports = {
       }
     );
   },
+  // Using @id and uuid to generate different id. It needs to add 1 more column to the file.
   createFromCVS: callBack => {
     pool.query(
       `LOAD DATA INFILE 'd:/Github/DP2/supermarket-Backend/Woolies/lunch_box.csv'
@@ -35,12 +36,13 @@ module.exports = {
       FIELDS TERMINATED BY ',' ENCLOSED BY '"'
       LINES TERMINATED BY '\n'
       IGNORE 1 ROWS
-      (supermarket,category,product_name,product_id,price,cup_price,product_url,img_url,viewed_date,ratings,rating_count,product_specials,available_in_stock);`
+      (@id,supermarket,category,product_name,product_id,price,cup_price,product_url,img_url,viewed_date,ratings,rating_count,product_specials,available_in_stock)
+      SET id = unhex(replace(uuid(),'-',''));`
     ),
     (error,results,fields) =>
     {
       if (error) {
-        return callBack(error);
+        callBack(error);
       }
       return callBack(null,results);
     }
@@ -49,10 +51,9 @@ module.exports = {
   getProducts: callBack => {
   pool.query(
     `select * from products_test`,
-    [],
-    (error,results,fields) => {
+    (error,results) => {
       if (error)
-      return callBack(error);
+        callBack(error);
     return callBack(null,results);
     }
   )
