@@ -18,20 +18,20 @@ module.exports = {
         data.ratings,
         data.rating_count,
         data.product_specials,
-        data.available_in_stock
+        data.available_in_stock,
       ],
       (error, results) => {
         if (error) {
-          callBack(error);
+          return callBack(error);
         }
         return callBack(null, results);
       }
     );
   },
   // Using @id and uuid to generate different id. It needs to add 1 more column to the file.
-  createFromCVS: callBack => {
+  createFromCVS: (callBack) => {
     pool.query(
-      `LOAD DATA INFILE 'd:/Github/DP2/supermarket-Backend/Woolies/lunch_box.csv'
+      `LOAD DATA LOCAL INFILE 'd:/Github/DP2/supermarket-Backend/Woolies/lunch_box.csv'
       INTO TABLE products_test
       FIELDS TERMINATED BY ',' ENCLOSED BY '"'
       LINES TERMINATED BY '\n'
@@ -39,36 +39,27 @@ module.exports = {
       (@id,supermarket,category,product_name,product_id,price,cup_price,product_url,img_url,viewed_date,ratings,rating_count,product_specials,available_in_stock)
       SET id = unhex(replace(uuid(),'-',''));`
     ),
-    (error,results,fields) =>
-    {
-      if (error) {
-        callBack(error);
-      }
-      return callBack(null,results);
-    }
-    
+      (error, results, fields) => {
+        if (error) {
+          callBack(error);
+        }
+        return callBack(null, results);
+      };
   },
-  getProducts: callBack => {
-  pool.query(
-    `select * from cars`,
-    (error,results) => {
-      if (error)
-        callBack(error);
-    return callBack(null,results);
-    }
-  )
-  }
-
+  getProducts: (callBack) => {
+    pool.query(`select * from products_test`, (error, results) => {
+      if (error) callBack(error);
+      return callBack(null, results);
+    });
+  },
 };
 
-/* Note
-{
-  localhost:3000/api/users/
-  
-	"product_id": "",
+/* Note: Sample for Post in Postman
+{"id": "",
 	"supermarket":"Woolworths Supermarket",
 	"category" :"Fruit & Veg",
 	"product_name":"Fresh Broccoli each",
+	"product_id": "",
 	"price": "$99",
 	"cup_price":"$0.99 / 1EA",
 	"product_url":"https://www.woolworths.com.au/shop/productdetails/134681/fresh-broccoli",	
@@ -78,6 +69,6 @@ module.exports = {
 	"rating_count":"0",	
 	"product_specials":"",	
 	"available_in_stock":"TRUE"
-} 
+}
 
 */
