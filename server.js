@@ -3,9 +3,9 @@
 const express = require("express");
 const app = express();
 // to make api calls 
-const cors = required('cors'); 
+const cors = require('cors'); 
 // For our dot environmnet
-const dotenv = required('dotenv');
+const dotenv = require('dotenv');
 dotenv.config();
 
 

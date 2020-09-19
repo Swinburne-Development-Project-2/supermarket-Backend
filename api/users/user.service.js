@@ -50,7 +50,7 @@ module.exports = {
   },
   getProducts: callBack => {
   pool.query(
-    `select * from products_test`,
+    `select * from cars`,
     (error,results) => {
       if (error)
         callBack(error);
