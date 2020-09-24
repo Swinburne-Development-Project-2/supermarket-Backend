@@ -1,5 +1,6 @@
 const pool = require("../../config/database");
-
+const fs = require("fs");
+const fastcsv = require("fast-csv");
 module.exports = {
   // Create a product is not necessary. It is commented to use its template.
 
@@ -33,22 +34,32 @@ module.exports = {
 
   // Using @id and uuid to generate different id. It needs to add 1 more column to the file.
   createFromCSV: (callBack) => {
-    pool.query(
-      `LOAD DATA LOCAL INFILE 'd:/Github/DP2/supermarket-Backend/Woolies/lunch_box.csv'
-      INTO TABLE products_test
-      FIELDS TERMINATED BY ',' ENCLOSED BY '"'
-      LINES TERMINATED BY '\n'
-      IGNORE 1 ROWS
-      (@id,supermarket,category,product_name,product_id,price,cup_price,product_url,img_url,viewed_date,ratings,rating_count,product_specials,available_in_stock)
-      SET id = unhex(replace(uuid(),'-',''));`
-    ),
-      (error, results, fields) => {
-        if (error) {
-          callBack(error);
-        }
-        return callBack(null, results);
-      };
-  },
+
+
+    // Creating a readstream from csv file and using fast-csv module to parse the data
+    let stream = fs.createReadStream("D:\Github\DP2\supermarket-Backend\Woolies\lunch_box.csv");
+    let csvData = [];
+    let csvStream = fastcsv
+        .parse()
+        .on("data", function(data){
+          csvData.push(data);
+        })
+        .on("end", function(){
+          csvData.shift();
+        });
+    
+        let query =
+          "INSERT INTO products_test (id,supermarket,category,product_name,product_id,price,cup_price,product_url,img_url,viewed_date,ratings,rating_count,product_specials,available_in_stock) VALUES ?";
+          pool.query(query, [csvData], (error, response) => {
+        
+            if (error) {
+              callBack(error);
+            }
+            return callBack(null, results);
+          });
+          stream.pipe(csvStream);
+      },
+  // search for a product by its keyword
     searchProduct: (keyword, callBack) => {
       const query = `select * from products_test where product_name REGEXP "[[:<:]]?[[:>:]]"`;
       pool.query(query
