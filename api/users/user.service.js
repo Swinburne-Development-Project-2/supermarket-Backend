@@ -37,7 +37,7 @@ module.exports = {
 
 
     // Creating a readstream from csv file and using fast-csv module to parse the data
-    let stream = fs.createReadStream("D:\Github\DP2\supermarket-Backend\Woolies\lunch_box.csv");
+    let stream = fs.createReadStream("Woolies/lunch_box.csv");
     let csvData = [];
     let csvStream = fastcsv
         .parse()
@@ -47,10 +47,9 @@ module.exports = {
         .on("end", function(){
           csvData.shift();
         });
-    
-        let query =
-          "INSERT INTO products_test (id,supermarket,category,product_name,product_id,price,cup_price,product_url,img_url,viewed_date,ratings,rating_count,product_specials,available_in_stock) VALUES ?";
-          pool.query(query, [csvData], (error, response) => {
+        const query =
+          `INSERT INTO products_test (id,supermarket,category,product_name,product_id,price,cup_price,product_url,img_url,viewed_date,ratings,rating_count,product_specials,available_in_stock) VALUES ?`;
+          pool.query(query, [csvData], (error, results) => {
         
             if (error) {
               callBack(error);
