@@ -1,14 +1,14 @@
 const router = require("express").Router();
 
 const {
-  createAProduct,
   getProducts,
-  createFromCVS
+  searchProduct,
+  createFromCSV
 } = require("./user.controller");
-// create a product by insert a json file in postman
-router.post("/", createAProduct);
-//get all products
-router.get("/", getProducts );
+// get all products
+router.get("/getAll", getProducts );
+// search for a product by keyword
+router.get("/search/:keyword", searchProduct);
 // This post request is to insert the data from CSV files to the database.
-router.post("/CVS", createFromCVS);
+router.post("/CSV", createFromCSV);
 module.exports = router;

@@ -19,7 +19,8 @@ app.use(express.urlencoded({extended:false}));
 
 const userRouter = require("./api/users/user.router");
 
-app.use("/api/users", userRouter);
+// Change the URL from api/users to /home
+app.use("/home", userRouter);
 const port = process.env.PORT || 4000;
 
 app.listen(port, () => {
