@@ -5,6 +5,7 @@ module.exports = {
     createFromCSV: callBack => {
       // Using read files to catch all the name and csv file.
       const folder = "d:/Github/DP2/supermarket-Backend/Aldi/";
+      
       fs.readdir(folder, (err, files) => {
         Array.from(files).forEach(file =>{
           switch (file) {
@@ -343,6 +344,260 @@ module.exports = {
           
       });
     });
+
+    const folder1 = "d:/Github/DP2/supermarket-Backend/Woolies/";
+      
+      fs.readdir(folder1, (err, files) => {
+        Array.from(files).forEach(file =>{
+          switch (file) {
+            case "baby.csv":
+              pool.query(
+                `LOAD DATA LOCAL INFILE 'd:/Github/DP2/supermarket-Backend/Woolies/baby.csv'
+                INTO TABLE products_test
+                FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+                LINES TERMINATED BY '\n'
+                IGNORE 1 ROWS
+                (@id,supermarket,category,product_name,product_id,price,cup_price,product_url,img_url,viewed_date,ratings,rating_count,product_specials,available_in_stock)
+                SET id = unhex(replace(uuid(),'-',''));`
+              ,
+              (error,results,fields) =>
+              {
+                if (error) {
+                  console.log(error);
+                }
+                console.log(results);
+              }
+            );
+            break;
+            case "bakery.csv":
+              pool.query(
+                `LOAD DATA LOCAL INFILE 'd:/Github/DP2/supermarket-Backend/Woolies/bakery.csv'
+                INTO TABLE products_test
+                FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+                LINES TERMINATED BY '\n'
+                IGNORE 1 ROWS
+                (@id,supermarket,category,product_name,product_id,price,cup_price,product_url,img_url,viewed_date,ratings,rating_count,product_specials,available_in_stock)
+                SET id = unhex(replace(uuid(),'-',''));`
+              ,
+              (error,results,fields) =>
+              {
+                if (error) {
+                  console.log(error);
+                }
+                console.log(results);
+              }
+            );
+            break;
+            case "dairy_eggs_fridge.csv":
+              pool.query(
+                `LOAD DATA LOCAL INFILE 'd:/Github/DP2/supermarket-Backend/Woolies/dairy_eggs_fridge.csv'
+                INTO TABLE products_test
+                FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+                LINES TERMINATED BY '\n'
+                IGNORE 1 ROWS
+                (@id,supermarket,category,product_name,product_id,price,cup_price,product_url,img_url,viewed_date,ratings,rating_count,product_specials,available_in_stock)
+                SET id = unhex(replace(uuid(),'-',''));`
+              ,
+              (error,results,fields) =>
+              {
+                if (error) {
+                  console.log(error);
+                }
+                console.log(results);
+              }
+            );
+            break;
+            case "drinks.csv":
+              pool.query(
+                `LOAD DATA LOCAL INFILE 'd:/Github/DP2/supermarket-Backend/Woolies/drinks.csv'
+                INTO TABLE products_test
+                FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+                LINES TERMINATED BY '\n'
+                IGNORE 1 ROWS
+                (@id,supermarket,category,product_name,product_id,price,cup_price,product_url,img_url,viewed_date,ratings,rating_count,product_specials,available_in_stock)
+                SET id = unhex(replace(uuid(),'-',''));`
+              ,
+              (error,results,fields) =>
+              {
+                if (error) {
+                  console.log(error);
+                }
+                console.log(results);
+              }
+            );
+            break;
+            case "freezer.csv":
+              pool.query(
+                `LOAD DATA LOCAL INFILE 'd:/Github/DP2/supermarket-Backend/Woolies/freezer.csv'
+                INTO TABLE products_test
+                FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+                LINES TERMINATED BY '\n'
+                IGNORE 1 ROWS
+                (@id,supermarket,category,product_name,product_id,price,cup_price,product_url,img_url,viewed_date,ratings,rating_count,product_specials,available_in_stock)
+                SET id = unhex(replace(uuid(),'-',''));`
+              ,
+              (error,results,fields) =>
+              {
+                if (error) {
+                  console.log(error);
+                }
+                console.log(results);
+              }
+            );
+            break;
+            case "fruit_veg.csv":
+              pool.query(
+                `LOAD DATA LOCAL INFILE 'd:/Github/DP2/supermarket-Backend/Woolies/fruit_veg.csv'
+                INTO TABLE products_test
+                FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+                LINES TERMINATED BY '\n'
+                IGNORE 1 ROWS
+                (@id,supermarket,category,product_name,product_id,price,cup_price,product_url,img_url,viewed_date,ratings,rating_count,product_specials,available_in_stock)
+                SET id = unhex(replace(uuid(),'-',''));`
+              ,
+              (error,results,fields) =>
+              {
+                if (error) {
+                  console.log(error);
+                }
+                console.log(results);
+              }
+            );
+            break;
+            case "health_beauty.csv":
+              pool.query(
+                `LOAD DATA LOCAL INFILE 'd:/Github/DP2/supermarket-Backend/Woolies/health_beauty.csv'
+                INTO TABLE products_test
+                FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+                LINES TERMINATED BY '\n'
+                IGNORE 1 ROWS
+                (@id,supermarket,category,product_name,product_id,price,cup_price,product_url,img_url,viewed_date,ratings,rating_count,product_specials,available_in_stock)
+                SET id = unhex(replace(uuid(),'-',''));`
+              ,
+              (error,results,fields) =>
+              {
+                if (error) {
+                  console.log(error);
+                }
+                console.log(results);
+              }
+            );
+            break;
+            case "household.csv":
+              pool.query(
+                `LOAD DATA LOCAL INFILE 'd:/Github/DP2/supermarket-Backend/Woolies/household.csv'
+                INTO TABLE products_test
+                FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+                LINES TERMINATED BY '\n'
+                IGNORE 1 ROWS
+                (@id,supermarket,category,product_name,product_id,price,cup_price,product_url,img_url,viewed_date,ratings,rating_count,product_specials,available_in_stock)
+                SET id = unhex(replace(uuid(),'-',''));`,
+              (error,results,fields) =>
+              {
+                if (error) {
+                  console.log(error);
+                }
+                console.log(results);
+              }
+            );
+            break;
+            case "liquor.csv":
+              pool.query(
+                `LOAD DATA LOCAL INFILE 'd:/Github/DP2/supermarket-Backend/Woolies/liquor.csv'
+                INTO TABLE products_test
+                FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+                LINES TERMINATED BY '\n'
+                IGNORE 1 ROWS
+                (@id,supermarket,category,product_name,product_id,price,cup_price,product_url,img_url,viewed_date,ratings,rating_count,product_specials,available_in_stock)
+                SET id = unhex(replace(uuid(),'-',''));`,
+              (error,results,fields) =>
+              {
+                if (error) {
+                  console.log(error);
+                }
+                console.log(results);
+              }
+            );
+            break;
+            case "lunch_box.csv":
+              pool.query(
+                `LOAD DATA LOCAL INFILE 'd:/Github/DP2/supermarket-Backend/Woolies/lunch_box.csv'
+                INTO TABLE products_test
+                FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+                LINES TERMINATED BY '\n'
+                IGNORE 1 ROWS
+                (@id,supermarket,category,product_name,product_id,price,cup_price,product_url,img_url,viewed_date,ratings,rating_count,product_specials,available_in_stock)
+                SET id = unhex(replace(uuid(),'-',''));`,
+              (error,results,fields) =>
+              {
+                if (error) {
+                  console.log(error);
+                }
+                console.log(results);
+              }
+            );
+            break;
+            case "meat_seafood_deli.csv":
+              pool.query(
+                `LOAD DATA LOCAL INFILE 'd:/Github/DP2/supermarket-Backend/Woolies/meat_seafood_deli.csv'
+                INTO TABLE products_test
+                FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+                LINES TERMINATED BY '\n'
+                IGNORE 1 ROWS
+                (@id,supermarket,category,product_name,product_id,price,cup_price,product_url,img_url,viewed_date,ratings,rating_count,product_specials,available_in_stock)
+                SET id = unhex(replace(uuid(),'-',''));`,
+              (error,results,fields) =>
+              {
+                if (error) {
+                  console.log(error);
+                }
+                console.log(results);
+              }
+            );
+            break;
+            case "pantry.csv":
+              pool.query(
+                `LOAD DATA LOCAL INFILE 'd:/Github/DP2/supermarket-Backend/Woolies/pantry.csv":
+                INTO TABLE products_test
+                FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+                LINES TERMINATED BY '\n'
+                IGNORE 1 ROWS
+                (@id,supermarket,category,product_name,product_id,price,cup_price,product_url,img_url,viewed_date,ratings,rating_count,product_specials,available_in_stock)
+                SET id = unhex(replace(uuid(),'-',''));`,
+              (error,results,fields) =>
+              {
+                if (error) {
+                  console.log(error);
+                }
+                console.log(results);
+              }
+            );
+            break;
+            case "pet.csv":
+              pool.query(
+                `LOAD DATA LOCAL INFILE 'd:/Github/DP2/supermarket-Backend/Woolies/pet.csv'
+                INTO TABLE products_test
+                FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+                LINES TERMINATED BY '\n'
+                IGNORE 1 ROWS
+                (@id,supermarket,category,product_name,product_id,price,cup_price,product_url,img_url,viewed_date,ratings,rating_count,product_specials,available_in_stock)
+                SET id = unhex(replace(uuid(),'-',''));`,
+              (error,results,fields) =>
+              {
+                if (error) {
+                  console.log(error);
+                }
+                console.log(results);
+              }
+            );
+            
+            break;
+          }
+          
+      });
+    });
+    
+
     return callBack(null, null);
       // pool.query(
       //   `LOAD DATA LOCAL INFILE 'd:/Github/DP2/supermarket-Backend/Aldi/Baby_food.csv'
@@ -362,7 +617,9 @@ module.exports = {
     },
   // search for a product by its keyword
     searchProduct: (keyword, callBack) => {
-      const query = `select * from products_test where product_name REGEXP "[[:<:]]?[[:>:]]"`;
+      const query = `select * from products_test where product_name REGEXP "^.*\b(?)\b.*$"`;
+      // If a line must satisfy all of multiple requirements, we need to use lookahead. ^(?=.*?\bone\b)(?=.*?\btwo\b)(?=.*?\bthree\b).*$
+      // matches a complete line of text that contains all of the words “one”, “two” and “three”.
       pool.query(query
       ,
       [
