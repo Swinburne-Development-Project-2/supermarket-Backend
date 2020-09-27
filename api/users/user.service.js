@@ -288,7 +288,7 @@ module.exports = {
             break;
             case "Spirits.csv":
               pool.query(
-                `LOAD DATA LOCAL INFILE 'd:/Github/DP2/supermarket-Backend/Aldi/Spirit.csv'
+                `LOAD DATA LOCAL INFILE 'd:/Github/DP2/supermarket-Backend/Aldi/Spirits.csv'
                 INTO TABLE products_test
                 FIELDS TERMINATED BY ',' ENCLOSED BY '"'
                 LINES TERMINATED BY '\n'
@@ -344,9 +344,6 @@ module.exports = {
           
       });
     });
-<<<<<<< HEAD
-    // Just return a call back to make sure node js working.
-=======
 
     const folder1 = "d:/Github/DP2/supermarket-Backend/Woolies/";
       
@@ -601,13 +598,13 @@ module.exports = {
     });
     
 
->>>>>>> 8bb4c7259e4e94a78186326d82c11703979936f1
     return callBack(null, null);
       
     },
   // search for a product by its keyword
     searchProduct: (keyword, callBack) => {
-      const query = `select * from products_test where product_name REGEXP "^.*\b(?)\b.*$"`;
+      // Return the require information followed contract.json
+      const query = `select product_name,price,product_url,img_url from products_test where product_name REGEXP "^.*\b(?)\b.*$"`;
       // If a line must satisfy all of multiple requirements, we need to use lookahead. ^(?=.*?\bone\b)(?=.*?\btwo\b)(?=.*?\bthree\b).*$
       // matches a complete line of text that contains all of the words “one”, “two” and “three”.
       pool.query(query
