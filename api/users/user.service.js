@@ -3,7 +3,7 @@ const fs = require("fs");
 module.exports = {
     // Using @id and uuid to generate different id. It needs to add 1 more column to the file.
     createFromCSV: callBack => {
-      // Using read files to catch all the name and csv file.
+      // Using read files to catch all the name and csv file in Aldi folder.
       const folder = "d:/Github/DP2/supermarket-Backend/Aldi/";
       fs.readdir(folder, (err, files) => {
         Array.from(files).forEach(file =>{
@@ -343,21 +343,8 @@ module.exports = {
           
       });
     });
+    // Just return a call back to make sure node js working.
     return callBack(null, null);
-      // pool.query(
-      //   `LOAD DATA LOCAL INFILE 'd:/Github/DP2/supermarket-Backend/Aldi/Baby_food.csv'
-      //   INTO TABLE products_test
-      //   FIELDS TERMINATED BY ',' ENCLOSED BY '"'
-      //   LINES TERMINATED BY '\n'
-      //   IGNORE 1 ROWS
-      //   (id,supermarket,category,product_name,product_id,price,cup_price,product_url,img_url,viewed_date,ratings,rating_count,product_specials,available_in_stock)`,
-      // (error,results,fields) =>
-      // {
-      //   if (error) {
-      //     callBack(error);
-      //   }
-      //   return callBack(null,results);
-      // });
       
     },
   // search for a product by its keyword
