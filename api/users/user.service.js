@@ -216,7 +216,7 @@ module.exports = {
             break;
             case "Just_Organic.csv":
               pool.query(
-                `LOAD DATA LOCAL INFILE 'd:/Github/DP2/supermarket-Backend/Aldi/Just_Organic.csv":
+                `LOAD DATA LOCAL INFILE 'd:/Github/DP2/supermarket-Backend/Aldi/Just_Organic.csv'
                 INTO TABLE products_test
                 FIELDS TERMINATED BY ',' ENCLOSED BY '"'
                 LINES TERMINATED BY '\n'
@@ -556,8 +556,8 @@ module.exports = {
             );
             break;
             case "pantry.csv":
-              pool.query(
-                `LOAD DATA LOCAL INFILE 'd:/Github/DP2/supermarket-Backend/Woolies/pantry.csv":
+              pool.query( 
+                `LOAD DATA LOCAL INFILE 'd:/Github/DP2/supermarket-Backend/Woolies/pantry.csv'
                 INTO TABLE products_test
                 FIELDS TERMINATED BY ',' ENCLOSED BY '"'
                 LINES TERMINATED BY '\n'
@@ -604,7 +604,7 @@ module.exports = {
   // search for a product by its keyword
     searchProduct: (keyword, callBack) => {
       // Return the require information followed contract.json
-      const query = `select product_name,price,product_url,img_url from products_test where product_name REGEXP "^.*\b(?)\b.*$"`;
+      const query = `SELECT product_name,price,product_url,img_url FROM products_test WHERE product_name LIKE CONCAT(CONCAT('%',?),'%')`;
       // If a line must satisfy all of multiple requirements, we need to use lookahead. ^(?=.*?\bone\b)(?=.*?\btwo\b)(?=.*?\bthree\b).*$
       // matches a complete line of text that contains all of the words “one”, “two” and “three”.
       pool.query(query
@@ -621,29 +621,17 @@ module.exports = {
     );
   },
 
+  // return all products with all the information (all columns).
   getProducts: (callBack) => {
     pool.query(`select * from products_test`, (error, results) => {
       if (error) callBack(error);
       return callBack(null, results);
     });
   },
+  deleteProducts: (callBack) => {
+    pool.query(`delete from products_test`, (error, results) => {
+      if (error) callBack(error);
+      return callBack(null, results);
+    });
+  },
 };
-
-/* Note: Sample for Post in Postman
-{"id": "",
-	"supermarket":"Woolworths Supermarket",
-	"category" :"Fruit & Veg",
-	"product_name":"Fresh Broccoli each",
-	"product_id": "",
-	"price": "$99",
-	"cup_price":"$0.99 / 1EA",
-	"product_url":"https://www.woolworths.com.au/shop/productdetails/134681/fresh-broccoli",	
-	"img_url":"https://cdn0.woolworths.media/content/wowproductimages/medium/134681.jpg",
-	"viewed_date":"9/10/2020 9:40",	
-	"ratings":"",
-	"rating_count":"0",	
-	"product_specials":"",	
-	"available_in_stock":"TRUE"
-}
-
-*/

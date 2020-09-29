@@ -2,27 +2,11 @@
 const {
   getProducts,
   searchProduct,
+  deleteProducts,
   createFromCSV,
 } = require("./user.service");
 
 module.exports = {
-  // Create 1 product is not necessary in our website.
-
-  // createAProduct: (req, res) => {
-  //   const body = req.body;
-  //   try {
-  //     createAProduct(body, (err, results) => {
-  //       return res.status(200).json({ sucess: 1, data: results });
-  //     });
-  //   } catch (err) {
-  //     console.log(err);
-  //     return res.status(500).json({
-  //       success: 0,
-  //       message: "Database connection error",
-  //     });
-  //   }
-  // },
-
   // get all products in the database
   getProducts: (req, res) => {
     try {
@@ -37,6 +21,21 @@ module.exports = {
       });
     }
   },
+   // delete all products to update the database weekly
+   deleteProducts: (req, res) => {
+    try {
+      deleteProducts((err, results) => {
+        return res.status(200).json({ sucess: 1, data: results });
+      });
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({
+        success: 0,
+        message: "Database connection error",
+      });
+    }
+  },
+  // search for products that the name has a specific keyword.
   searchProduct: (req, res) => {
     const {keyword} = req.params;
     try {
