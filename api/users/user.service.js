@@ -604,9 +604,21 @@ module.exports = {
   // search for a product by its keyword
     searchProduct: (keyword, callBack) => {
       // Return the require information followed contract.json
-      const query = `SELECT product_name,price,product_url,img_url FROM products_test WHERE product_name LIKE CONCAT(CONCAT('%',?),'%')`;
+      const query = 
+      `SELECT product_name,price,product_url,img_url,supermarket 
+        FROM products_test
+        WHERE product_name 
+        LIKE CONCAT(CONCAT('%',?),'%')
+        AND price != ""
+        ORDER BY price
+        LIMIT 10`;
       // If a line must satisfy all of multiple requirements, we need to use lookahead. ^(?=.*?\bone\b)(?=.*?\btwo\b)(?=.*?\bthree\b).*$
       // matches a complete line of text that contains all of the words “one”, “two” and “three”.
+      // UNION 
+      // (SELECT product_name,price,product_url,img_url 
+      // FROM products_test
+      // WHERE price IS NOT NULL
+      // ORDER BY price)
       pool.query(query
       ,
       [
