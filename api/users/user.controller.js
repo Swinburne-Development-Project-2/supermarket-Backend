@@ -36,11 +36,12 @@ module.exports = {
     }
   },
   // search for products that the name has a specific keyword.
+  // return the json file in the exact format of the contract.
   searchProduct: (req, res) => {
     const {keyword} = req.params;
     try {
       searchProduct(keyword, (err, results) => {
-        return res.status(200).json({ success: 1, data: results });
+        return res.status(200).json(results);
       });
     } catch (err) {
       console.log(err);
