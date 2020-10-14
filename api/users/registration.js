@@ -1,5 +1,6 @@
 const pool = require("../../config/database");
-
+var bcrypt = require('bcrypt');
+const saltRounds = 10;
 exports.register = async function(req,res){
     const password = req.body.password;
     const encryptedPassword = await bcrypt.hash(password, saltRounds)

@@ -6,7 +6,7 @@ const app = express();
 const cors = require('cors'); 
 // For our dot environmnet
 const dotenv = require('dotenv');
-var login = require('./userRouter/login');
+// var login = require('./api/users/login');
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -30,8 +30,8 @@ app.use(function(req, res, next) {
 
 const userRouter = require("./api/users/user.router");
 
-userRouter.post('/register',login.register);
-userRouter.post('/login',login.login);
+// userRouter.post('/register',login.register);
+// userRouter.post('/login',login.login);
 
 // Change the URL from api/users to /home
 app.use("/home", userRouter);

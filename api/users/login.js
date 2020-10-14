@@ -1,5 +1,5 @@
 const pool = require("../../config/database");
-
+var bcrypt = require('bcrypt');
 exports.login = async function(req,res){
     var email= req.body.email;
     var password = req.body.password;
