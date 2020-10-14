@@ -628,7 +628,25 @@ module.exports = {
         if (error) {
            callBack(error);
         }
-        return callBack(null, results);
+        // Looping all items in the return data from DB and filter woolies/aldi items.
+        let aldiItems =[];
+        let wooliesItems =[];
+        Array.from(results).forEach( element =>
+          {
+          if (element.supermarket == "Woolworths Supermarket") {
+          wooliesItems.push(element);
+          }
+          else
+          {
+            aldiItems.push(element);
+          }
+        }
+        )
+        // Add two lists into 1 json file according to the contract.
+        var finalList = { "woolies":[],"aldi":[]};
+        finalList.woolies = wooliesItems;
+        finalList.aldi = aldiItems;
+        return callBack(null, finalList);
       }
     );
   },
