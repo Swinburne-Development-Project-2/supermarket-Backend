@@ -16,6 +16,7 @@ exports.register = async function(req,res){
           "failed":"error ocurred"
         })
       } else {
+        req.flash('success_msg','You have now registered!')
         res.send({
           "code":200,
           "success":"user registered sucessfully"
