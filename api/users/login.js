@@ -5,31 +5,28 @@ exports.login = async function(req,res){
     var password = req.body.password;
     pool.query('SELECT * FROM users WHERE email = ?',[email], async function (error, results, fields) {
       if (error) {
-        res.send({
-          "code":400,
-          "failed":"error ocurred"
+        res.status(404).json({
+          "messaege":"error ocurred"
         })
       }else{
         if(results.length >0){
           const comparision = await bcrypt.compare(password, results[0].password)
           if(comparision){
-              res.send({
-                "code":200,
-                "success":"login sucessfull"
+              res.status(200).json({
+                "firstName": results[0].firstName,
+                "lastName": results[0].lastName
               })
           }
           else{
-            res.send({
-                 "code":204,
-                 "success":"Email and password does not match"
+            res.status(404).json({
+                 "message":"Email and password does not match"
             })
           }
         }
         else{
-          res.send({
-            "code":206,
-            "success":"Email does not exits"
-              });
+          res.status(404).json({
+            "message":"Email does not exist"
+       });
         }
       }
       });
