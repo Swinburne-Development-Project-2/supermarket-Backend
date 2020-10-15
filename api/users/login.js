@@ -13,6 +13,7 @@ exports.login = async function(req,res){
         if(results.length >0){
           const comparision = await bcrypt.compare(password, results[0].password)
           if(comparision){
+              req.flash('success_msg','You have now login!')
               res.send({
                 "code":200,
                 "success":"login sucessfull"

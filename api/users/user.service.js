@@ -609,6 +609,7 @@ module.exports = {
         FROM products_test
         WHERE product_name 
         LIKE CONCAT(CONCAT('%',?),'%')
+        OR product_url LIKE CONCAT(CONCAT('%',?),'%')
         AND price != ""
         ORDER BY price
         LIMIT 10`;
@@ -622,7 +623,7 @@ module.exports = {
       pool.query(query
       ,
       [
-        keyword
+        keyword, keyword
       ],
       (error, results) => {
         if (error) {
