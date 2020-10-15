@@ -651,7 +651,7 @@ module.exports = {
         finalList.aldi = aldiItems;
         var endTime = Date.now();
         var timeDiff = endTime - startTime;
-        discord.sendMessage(`Backend - Time taken to search products using keyword and filter: ${timeDiff}ms`);
+        discord.sendMessage(`Backend - Time taken to search and filter products using keyword "${keyword}": ${timeDiff}ms`);
         return callBack(null, finalList);
       }
     );
