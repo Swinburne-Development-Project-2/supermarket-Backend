@@ -1,6 +1,7 @@
 const router = require("express").Router();
 var login = require('./login');
 var register = require("./registration");
+var discord = require('./discordMessage');
 const {
   getProducts,
   searchProduct,
@@ -17,4 +18,5 @@ router.get("/deleteAll", deleteProducts );
 router.get("/CSV", createFromCSV);
 router.post("/register",register.register);
 router.post("/login",login.login);
+router.post("/discord", discord.sendDiscordMessage);
 module.exports = router;

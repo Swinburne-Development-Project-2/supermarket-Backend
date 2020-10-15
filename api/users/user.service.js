@@ -1,5 +1,7 @@
 const pool = require("../../config/database");
 const fs = require("fs");
+const { start } = require("repl");
+const discord = require('../../utils/bot');
 module.exports = {
     // Using @id and uuid to generate different id. It needs to add 1 more column to the file.
     createFromCSV: callBack => {
@@ -603,6 +605,7 @@ module.exports = {
     },
   // search for a product by its keyword
     searchProduct: (keyword, callBack) => {
+      var startTime = Date.now();
       // Return the require information followed contract.json
       const query = 
       `SELECT product_name,price,product_url,img_url,supermarket 
@@ -646,6 +649,9 @@ module.exports = {
         var finalList = { "woolies":[],"aldi":[]};
         finalList.woolies = wooliesItems;
         finalList.aldi = aldiItems;
+        var endTime = Date.now();
+        var timeDiff = endTime - startTime;
+        discord.sendMessage(`Backend - Time taken to search products using keyword and filter: ${timeDiff}ms`);
         return callBack(null, finalList);
       }
     );
