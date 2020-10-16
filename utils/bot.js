@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const config = require('../config.json');
 
-exports.sendMessage = async function(msg){
+exports.sendMessage = function(msg){
     const client = new Discord.Client();
 
     client.on("ready", () => {

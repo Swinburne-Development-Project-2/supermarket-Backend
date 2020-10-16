@@ -1,6 +1,5 @@
 const pool = require("../../config/database");
 const fs = require("fs");
-const { start } = require("repl");
 const discord = require('../../utils/bot');
 module.exports = {
     // Using @id and uuid to generate different id. It needs to add 1 more column to the file.
@@ -651,7 +650,9 @@ module.exports = {
         finalList.aldi = aldiItems;
         var endTime = Date.now();
         var timeDiff = endTime - startTime;
-        discord.sendMessage(`Backend - Time taken to search and filter products using keyword "${keyword}": ${timeDiff}ms`);
+        if (timeDiff > 700) {
+          discord.sendMessage(`Backend - Time taken to search and filter products using keyword "${keyword}": ${timeDiff}ms`);
+        }
         return callBack(null, finalList);
       }
     );
