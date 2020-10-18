@@ -626,13 +626,23 @@ module.exports = {
       var startTime = Date.now();
       // Return the require information followed contract.json
       const query = 
-      `SELECT product_name,price,product_url,img_url,supermarket 
+      `(SELECT product_name,price,product_url,img_url,supermarket 
         FROM products_test
         WHERE product_name 
         LIKE CONCAT(CONCAT('%',?),'%')
         AND price != ""
+        AND supermarket = "Woolworths Supermarket"
         ORDER BY price
-        LIMIT 50`;
+        LIMIT 10)
+      UNION
+      (SELECT product_name,price,product_url,img_url,supermarket 
+        FROM products_test
+        WHERE product_name 
+        LIKE CONCAT(CONCAT('%',?),'%')
+        AND price != ""
+        AND supermarket != "Woolworths Supermarket"
+        ORDER BY price
+        LIMIT 10)`;
       // If a line must satisfy all of multiple requirements, we need to use lookahead. ^(?=.*?\bone\b)(?=.*?\btwo\b)(?=.*?\bthree\b).*$
       // matches a complete line of text that contains all of the words “one”, “two” and “three”.
       // UNION 
@@ -643,13 +653,12 @@ module.exports = {
       pool.query(query
       ,
       [
-        keyword
+        keyword, keyword
       ],
       (error, results) => {
         if (error) {
            callBack(error);
         }
-        // Looping all items in the return data from DB and filter woolies/aldi items.
         let aldiItems =[];
         let wooliesItems =[];
         Array.from(results).forEach( element =>
@@ -676,7 +685,43 @@ module.exports = {
       }
     );
   },
+/**
+  // get the 10 values from Aldi 
+  getAldi: (keyword) =>{
+    // Return the require information followed contract.json
+    const Aldiquery = 
+    `SELECT product_name,price,product_url,img_url,supermarket 
+      FROM products_test
+      WHERE product_name 
+      LIKE CONCAT(CONCAT('%',?),'%')
+      OR WHERE product_url
+      LIKE CONCAT(CONCAT('%',?),'%')
+      AND price != ""
+      AND supermarket != "Woolworths Supermarket"
+      ORDER BY price
+      LIMIT 10`;
+    pool.query(Aldiquery
+    ,
+    [
+      keyword, keyword
+    ],
+    (error, results) => {
+      if (error) {
+         callBack(error);
+      }
+      // Looping all items in the return data from DB and filter woolies/aldi items.
+      let aldiItems =[];
+      Array.from(results).forEach( element =>
+        {
+          aldiItems.push(element);
+        }
+      )
+    }
+  );
+  return aldiItems;
+  },
 
+  **/
   // return all products with all the information (all columns).
   getProducts: (callBack) => {
     pool.query(`select * from products_test`, (error, results) => {
