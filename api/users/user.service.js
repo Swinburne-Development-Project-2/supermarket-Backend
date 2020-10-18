@@ -632,7 +632,7 @@ module.exports = {
         LIKE CONCAT(CONCAT('%',?),'%')
         AND price != ""
         ORDER BY price
-        LIMIT 10`;
+        LIMIT 50`;
       // If a line must satisfy all of multiple requirements, we need to use lookahead. ^(?=.*?\bone\b)(?=.*?\btwo\b)(?=.*?\bthree\b).*$
       // matches a complete line of text that contains all of the words “one”, “two” and “three”.
       // UNION 
